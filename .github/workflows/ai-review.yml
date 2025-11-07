@@ -14,13 +14,13 @@ jobs:
       issues: write 
     steps:
       - name: Start PR-Agent with Gemini
-        uses: qodo-ai/pr-agent@main
+        uses: qodo-ai/pr-agent@0.31
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
           github_action_config.auto_review: "true"
           github_action_config.auto_describe: "true"
           github_action_config.auto_improve: "true"
-          
+
           GEMINI_KEY: ${{ secrets.GEMINI_API_KEY }}
           config.model: "gemini/gemini-2.5-flash"
           config.fallback_models: '["gemini/gemini-2.5-flash"]'

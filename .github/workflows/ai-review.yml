@@ -1,23 +1,25 @@
-name: AI Code Review (Gemini)
+name: AI Code Review
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
+    types: [opened, synchronize, reopened]
+  pull_request_review_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
-  label:
+  review:
     runs-on: ubuntu-latest
-
-    permissions:
-      issues: write  # Write permission to add labels
-      pull-requests: write 
-      contents: read  # Read permission to analyze the content
-
     steps:
-      - name: Label Issues and PRs
-        uses: Prachi-Jamdade/auto-labeler@main
+      - name: CodeRabbit Reviewer
+        uses: coderabbitai/ai-pr-reviewer@latest
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          gemini-api-key: ${{ secrets.GEMINI_API_KEY }}
-          label-mapping: '{"bug": "bug", "feature": "enhancement", "documentation": "docs", "question": "question"}'
-          max-issues: 30
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_API_MODEL: "gpt-4o"
+          language: "pl"
+          review_simple_changes: true
+          review_comment_lgtm: false

@@ -1,4 +1,4 @@
-name: AI Code Review
+name: AI Code Review (Gemini)
 
 on:
   pull_request:
@@ -12,11 +12,13 @@ jobs:
   review:
     runs-on: ubuntu-latest
     steps:
-      - uses: coderabbitai/ai-pr-reviewer@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          debug: false
-          review_simple_changes: false
-          review_comment_lgtm: false
+          fetch-depth: 0
+
+      - name: Code Review by Gemini AI
+        uses: rubenslin/gemini-code-review-action@v1.0.5
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}

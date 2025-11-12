@@ -1,9 +1,40 @@
 package Parameter_Parser
 
-import (
-	"encoding/json"
-	"os"
-)
+// Static HashMap of commands
+var params = map[string]parameter{
+	"--target": {
+		Arguments:   []string{},
+		DefaultVal:  "",
+		ArgRequired: true,
+	},
+	"--userAgent": {
+		Arguments:   []string{},
+		DefaultVal:  "Scanner/1.0",
+		ArgRequired: false,
+	},
+	"--referer": {
+		Arguments:   []string{},
+		DefaultVal:  "",
+		ArgRequired: false,
+	},
+	"--tests": {
+		Arguments: []string{"https", "hsts", "csp", "xFrame",
+			"refererPol", "xxss", "featurePol", "listing", "openRedirect", "fCookies", "fHttpOnly"},
+		DefaultVal:  "",
+		ArgRequired: true,
+	},
+	"--httpMethods": {
+		Arguments: []string{"GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "TRACE",
+			"CONNECT", "HEAD"},
+		DefaultVal:  "",
+		ArgRequired: true,
+	},
+	"--files": {
+		Arguments:   []string{},
+		DefaultVal:  "",
+		ArgRequired: true,
+	},
+}
 
 type parameterParser struct{}
 type commandParameter struct {
@@ -11,9 +42,9 @@ type commandParameter struct {
 	Arguments []string
 }
 type parameter struct {
-	Arguments   []string `json:"arguments"`
-	DefaultVal  string   `json:"defaultVal"`
-	ArgRequired bool     `json:"argRequired"`
+	Arguments   []string
+	DefaultVal  string
+	ArgRequired bool
 }
 type parsingError struct {
 	Code    int
@@ -46,8 +77,6 @@ func (p *parameterParser) Parse(userParameters []string) []commandParameter {
 			Error: nil,
 		})
 	}
-	params := parseJsonFile()
-
 	return transformIntoTable(params, userParameters)
 }
 
@@ -234,27 +263,4 @@ func findElement(userParam string, params []string) bool {
 		}
 	}
 	return false
-}
-func parseJsonFile() map[string]parameter {
-	bs, err := os.ReadFile("App/Shared/commands.json")
-	//Checking if file with built-in commands is parsed correctly
-	if err != nil {
-		panic(parsingError{
-			Code: 302,
-			Message: `Parsing error occurred. This could be due to:
-				- internal error`,
-			Error: err,
-		})
-	}
-
-	var params map[string]parameter
-	if err := json.Unmarshal(bs, &params); err != nil {
-		panic(parsingError{
-			Code: 302,
-			Message: `Parsing error occurred. This could be due to:
-				- internal error`,
-			Error: err,
-		})
-	}
-	return params
 }

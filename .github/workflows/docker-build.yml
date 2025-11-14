@@ -29,7 +29,7 @@ jobs:
               username: ${{ github.repository_owner }}
               password: ${{ secrets.GITHUB_TOKEN }}
 
-        - name: Build and push for Main
+        - name: Build and push for main
           if: github.event_name == 'push' && github.ref == 'refs/heads/main'
           uses: docker/build-push-action@v6.18.0
           with:

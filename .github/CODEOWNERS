@@ -15,5 +15,5 @@ Dockerfile @Kogut01
 # HTTP Client
 App/HTTP/** @MichalPlatosz1
 
-# Parametr parser
+# Parameter Parser
 App/Params/** @Mailosz0812

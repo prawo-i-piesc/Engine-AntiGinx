@@ -328,7 +328,7 @@ func findElement(userParam string, params []string) bool
 func checkOccurences(args []string)
 ```
 
-- Iterative function which checks if there is more than one occurrences of the same argument
+- Iterative function which checks if there is more than one occurrence of the same argument
 
 ---
 

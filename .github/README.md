@@ -145,7 +145,7 @@ type httpError struct {
 
 | Code | Category | Description |
 | --- | --- | --- |
-| **100** | Failed to create HTTP request |
+| **100** | Request Creation Error | Failed to create HTTP request |
 | **101** | Network Error | Network-related failures including DNS lookup failures, connection timeouts, network unreachable, or no response object |
 | **102** | HTTP Status Error | Non-200 HTTP status codes returned by the server |
 | **200** | Response Body Error | Errors encountered while reading the response body |

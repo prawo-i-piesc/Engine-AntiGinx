@@ -114,9 +114,8 @@ response := wrapper.Get("https://example.com", HttpClient.WithHeaders(map[string
 func main() {
     defer func() {
         if r := recover(); r != nil {
-            if httpErr, ok := r.(HttpClient.httpError); ok {
-                fmt.Printf("HTTP Error %d: %s\n", httpErr.code, httpErr.message)
-            }
+            // Handle error without referencing unexported type
+            fmt.Printf("HTTP error: %v\n", r)
         }
     }()
 

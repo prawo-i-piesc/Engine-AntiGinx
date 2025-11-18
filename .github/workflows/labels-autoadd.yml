@@ -1,4 +1,4 @@
-name: Labels Managment
+name: Labels Management
 run-name: >-
     ${{ 
         github.event_name == 'pull_request' 
@@ -10,7 +10,6 @@ on:
         types: [opened, reopened]
 
 permissions:
-    statuses: read
     contents: read
     issues: write
     pull-requests: write

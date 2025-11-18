@@ -33,12 +33,12 @@ jobs:
             ISSUE_ID=$(echo "$BRANCH" | grep -oE '(/|^)[0-9]+' | head -n 1 | tr -d '/')
 
             # 2. Get Milestone name from Issue
-            MILESTONE=$(gh issue view "$ISSUE_ID" --json milestone --jq '.milestone.title // empty')
-
+            MILESTONE=$(gh issue view "$ISSUE_ID" --json milestone --jq '.milestone.title // empty' 2>/dev/null || true)
+            
             # 3. If Milestone exists, set it in PR
-            if [ -n "$MILESTONE" ]; then
+            if [ -n "$ISSUE_ID" ] && [ -n "$MILESTONE" ]; then
                 gh pr edit "$PR_URL" --milestone "$MILESTONE"
-                echo "Set milestone '$MILESTONE' for issue #$ISSUE_ID"
+                echo "Set milestone '$MILESTONE' from issue #$ISSUE_ID to PR"
             else
                 echo "No milestone found for issue #$ISSUE_ID"
             fi

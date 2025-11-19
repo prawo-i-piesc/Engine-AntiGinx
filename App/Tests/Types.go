@@ -15,6 +15,7 @@ const (
 	Critical
 )
 
+// TestResult represents the result of a test, including its name, certainty, threat level, metadata, and description.
 type TestResult struct {
 	Name        string
 	Certainty   int // percentage certainty of the result

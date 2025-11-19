@@ -1,0 +1,47 @@
+package Tests
+
+import (
+	"net/http"
+)
+
+type ThreatLevel int
+
+const (
+	None ThreatLevel = iota
+	Info
+	Low
+	Medium
+	High
+	Critical
+)
+
+type TestResult struct {
+	Name        string
+	Certainty   int // percentage certainty of the result
+	ThreatLevel ThreatLevel
+	Metadata    any
+	Description string
+}
+
+type ResponseTestParams struct {
+	Response *http.Response
+}
+
+type ResponseTest struct {
+	Id          string
+	Name        string
+	Description string
+
+	RunTest func(params ResponseTestParams) TestResult
+}
+
+func (brt *ResponseTest) GetId() string          { return brt.Id }
+func (brt *ResponseTest) GetName() string        { return brt.Name }
+func (brt *ResponseTest) GetDescription() string { return brt.Description }
+
+func (rt *ResponseTest) Run(params ResponseTestParams) TestResult {
+	if rt.RunTest == nil {
+		panic("Run method not implemented")
+	}
+	return rt.RunTest(params)
+}

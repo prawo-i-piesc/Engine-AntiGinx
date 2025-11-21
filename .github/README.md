@@ -48,7 +48,7 @@ Engine-AntiGinx/
 
 ### Prerequisites
 
-- Go 1.x or higher ([download here](https://go.dev/dl/))
+- Go 1.25 or higher ([download here](https://go.dev/dl/))
 - Docker (optional)
 
 ### Running Locally
@@ -83,6 +83,7 @@ docker run ghcr.io/prawo-i-piesc/engine-antiginx:latest test --target example.co
 ```
 
 ## Links
+
 - 📦 [GitHub Repository](https://github.com/prawo-i-piesc/engine-antiginx)
 - 🐳 [Container Images (GHCR)](https://github.com/prawo-i-piesc/engine-antiginx/pkgs/container/engine-antiginx)
 - 📚 [Documentation (GitHub Pages)](https://prawo-i-piesc.github.io/engine-antiginx/)

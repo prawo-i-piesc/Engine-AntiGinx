@@ -80,8 +80,9 @@ func extractMaxAge(hstsHeader string) int {
 	parts := strings.Split(hstsHeader, ";")
 	for _, part := range parts {
 		part = strings.TrimSpace(part)
-		if strings.HasPrefix(strings.ToLower(part), "max-age=") {
-			maxAgeStr := strings.TrimPrefix(strings.ToLower(part), "max-age=")
+		partLower := strings.ToLower(part)
+		if strings.HasPrefix(partLower, "max-age=") {
+			maxAgeStr := strings.TrimPrefix(partLower, "max-age=")
 			if maxAge, err := strconv.Atoi(maxAgeStr); err == nil {
 				return maxAge
 			}
